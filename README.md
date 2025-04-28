@@ -1,2 +1,2 @@
-# django_faker_admin
+# Django Faker Admin
 Populate Dummy Data From Admin
