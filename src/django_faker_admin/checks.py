@@ -30,10 +30,9 @@ def check_settings(app_configs, **kwargs) -> List[Warning]:
             or settings.FAKER_ADMIN_MAX_LIMIT <= 0:
         errors.append(
             Warning(
-                "'FAKER_ADMIN_MAX_LIMIT' should be a positive integer.",
+                msg="'FAKER_ADMIN_MAX_LIMIT' should be a positive integer.",
                 id='django_faker_admin.W001',
-                hint="Set 'FAKER_ADMIN_MAX_LIMIT' to a positive integer in your settings.",
-                code='W001',
+                hint="Set 'FAKER_ADMIN_MAX_LIMIT' to a positive integer in your settings."
             )
         )
 
@@ -41,10 +40,9 @@ def check_settings(app_configs, **kwargs) -> List[Warning]:
             or not settings.FAKER_ADMIN_URL.endswith('/'):
         errors.append(
             Warning(
-                "'FAKER_ADMIN_URL' should be a string and should end with a '/'",
+                msg="'FAKER_ADMIN_URL' should be a string and should end with a '/'",
                 id='django_faker_admin.W002',
-                hint="Set 'FAKER_ADMIN_URL' to a valid string in your settings.",
-                code='W002',
+                hint="Set 'FAKER_ADMIN_URL' to a valid string in your settings."
             )
         )
 
@@ -52,10 +50,9 @@ def check_settings(app_configs, **kwargs) -> List[Warning]:
             or not settings.FAKER_ADMIN_TEMPLATE_NAME.endswith('.html'):
         errors.append(
             Warning(
-                "'FAKER_ADMIN_TEMPLATE_NAME' should be a string and should end with '.html'",
+                msg="'FAKER_ADMIN_TEMPLATE_NAME' should be a string and should end with '.html'",
                 id='django_faker_admin.W003',
-                hint="Set 'FAKER_ADMIN_TEMPLATE_NAME' to a valid string in your settings.",
-                code='W003',
+                hint="Set 'FAKER_ADMIN_TEMPLATE_NAME' to a valid string in your settings."
             )
         )
 
@@ -63,10 +60,9 @@ def check_settings(app_configs, **kwargs) -> List[Warning]:
         or not settings.FAKER_ADMIN_CHANGE_LIST_TEMPLATE.endswith('.html'):
         errors.append(
             Warning(
-                "'FAKER_ADMIN_CHANGE_LIST_TEMPLATE' should be a string and should end with '.html'",
+                msg="'FAKER_ADMIN_CHANGE_LIST_TEMPLATE' should be a string and should end with '.html'",
                 id='django_faker_admin.W004',
-                hint="Set 'FAKER_ADMIN_CHANGE_LIST_TEMPLATE' to a valid string in your settings.",
-                code='W004',
+                hint="Set 'FAKER_ADMIN_CHANGE_LIST_TEMPLATE' to a valid string in your settings."
             )
         )
 
