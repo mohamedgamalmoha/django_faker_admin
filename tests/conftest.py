@@ -1,4 +1,14 @@
+import os
+
 import pytest
+import django
+
+
+# Ensure tests use test-specific settings
+os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.testproject_settings'
+
+# Initialize Django before fixtures
+django.setup()
 
 
 @pytest.fixture
@@ -25,4 +35,3 @@ def check_settings_function(mock_settings):
     """
     from django_faker_admin.checks import check_settings
     return check_settings
-
