@@ -73,13 +73,12 @@ class DateHierarchyTests(TestCase):
 
         soup = BeautifulSoup(cl.content, 'html.parser')
 
-        add_tags = soup.find_all('a', class_='addlink')
+        add_tag = soup.find('a', class_='dummy-data-href')
         
         self.assertEqual(cl.status_code, 200)
         self.assertTrue(self.superuser.has_perm(self.add_perm_codename))
-        self.assertTrue(
-            any(tag['href'] == settings.FAKER_ADMIN_URL for tag in add_tags)
-        )
+        self.assertIsNotNone(add_tag)
+        self.assertEqual(add_tag['href'], settings.FAKER_ADMIN_URL)
 
     def test_no_href_exist(self):
         permission = self.get_permission_from_codename(self.add_perm_codename)
@@ -93,10 +92,8 @@ class DateHierarchyTests(TestCase):
 
         soup = BeautifulSoup(cl.content, 'html.parser')
 
-        add_tags = soup.find_all('a', class_='addlink')
+        add_tag = soup.find('a', class_='dummy-data-href')
         
         self.assertEqual(cl.status_code, 200)
         self.assertFalse(self.orduser.has_perm(self.add_perm_codename))
-        self.assertFalse(
-            any(tag['href'] == settings.FAKER_ADMIN_URL for tag in add_tags)
-        )
+        self.assertIsNone(add_tag)
