@@ -31,7 +31,6 @@ class FakerAdminView(FormView):
 
     def __init__(
             self,
-            *args,
             model_admin: ModelAdmin,
             factory_class: DjangoModelFactory,
             exclude: Tuple[str] = None,
@@ -44,10 +43,9 @@ class FakerAdminView(FormView):
             - model_admin (ModelAdmin): The admin class for the model to be populated.
             - factory_class (DjangoModelFactory): The factory class used to create dummy data.
             - exclude (Tuple[str]): A tuple of field names to be excluded from the form.
-            - *args: Additional positional arguments.
             - **kwargs: Additional keyword arguments.
         """
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
         self.model_admin = model_admin
         self.model = self.model_admin.model
         self.factory_class = factory_class
