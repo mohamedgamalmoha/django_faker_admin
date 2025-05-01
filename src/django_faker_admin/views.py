@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Type, Tuple
 
 from django import forms
 from django.urls import reverse
@@ -21,7 +21,7 @@ class FakerAdminView(FormView):
     The form excludes specified fields and ensures that only the desired number of dummy items are created.
     """
     #: Factory class to be used for creating dummy data
-    factory_class: DjangoModelFactory = None
+    factory_class: Type[DjangoModelFactory] = None
     #: ModelAdmin instance for the model to be populated
     model_admin: ModelAdmin = None
     #: URL to redirect to after form submission
@@ -32,7 +32,7 @@ class FakerAdminView(FormView):
     def __init__(
             self,
             model_admin: ModelAdmin,
-            factory_class: DjangoModelFactory,
+            factory_class: Type[DjangoModelFactory],
             exclude: Tuple[str] = None,
             **kwargs
         ) -> None:
@@ -41,7 +41,7 @@ class FakerAdminView(FormView):
 
         Args:
             - model_admin (ModelAdmin): The admin class for the model to be populated.
-            - factory_class (DjangoModelFactory): The factory class used to create dummy data.
+            - factory_class (Type[DjangoModelFactory]): The factory class used to create dummy data.
             - exclude (Tuple[str]): A tuple of field names to be excluded from the form.
             - **kwargs: Additional keyword arguments.
         """
