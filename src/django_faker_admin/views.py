@@ -103,6 +103,30 @@ class FakerAdminView(FormView):
         # Combine the explicitly excluded fields with the unique fields.
         return self.exclude or () + unique_fields
 
+    def get_form_kwargs(self):
+        """
+        Returns the keyword arguments for instantiating the form.
+        This method is used to pass the initial data and request data to the form.
+        It includes the initial data, prefix, and any POST or PUT data if the request method is either of those.
+
+        Returns:
+            - dict: A dictionary of keyword arguments to be passed to the form class.
+        """
+        kwargs =  {
+            "initial": self.get_initial(),
+            "prefix": self.get_prefix(),
+        }
+
+        if hasattr(self, 'request') and self.request.method in ("POST", "PUT"):
+            kwargs.update(
+                {
+                    "data": self.request.POST,
+                    "files": self.request.FILES,
+                }
+            )
+
+        return kwargs
+
     def get_form_class(self):
         """
         Dynamically creates and returns a form class for dummy data creation.
