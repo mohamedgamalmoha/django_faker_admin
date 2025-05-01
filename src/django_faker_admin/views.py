@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views.generic import FormView
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.helpers import AdminForm
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy, ngettext
 from factory.django import DjangoModelFactory
 
@@ -51,6 +52,42 @@ class FakerAdminView(FormView):
         self.model = self.model_admin.model
         self.factory_class = factory_class
         self.exclude = exclude
+
+    def has_add_permission(self, request):
+        """
+        Checks if the user has permission to add dummy data for the model.
+
+        Args:
+            - request: The HTTP request object.
+
+        Returns:
+            - bool: True if the user has permission, False otherwise.
+        """
+        return request.user.has_perm(f"{self.model._meta.app_label}.add_{self.model._meta.model_name}")
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Handles the HTTP request and checks for permissions.
+        This method is called before the view processes the request. It checks if the user has permission to add
+        dummy data for the model. If not, it raises a PermissionDenied exception.
+
+        Args:
+            - request: The HTTP request object.
+            - *args: Additional positional arguments.
+            - **kwargs: Additional keyword arguments.
+
+        Returns:
+            - HttpResponse: The response object.
+
+        Raises:
+            - PermissionDenied: If the user does not have permission to add dummy data.
+        """
+        # Check if the user has add permission for the model
+        if not self.has_add_permission(request):
+            raise PermissionDenied(
+                gettext_lazy("You don't have permission to preform this action.")
+            )
+        return super().dispatch(request, *args, **kwargs)
 
     def get_exclude(self):
         """
