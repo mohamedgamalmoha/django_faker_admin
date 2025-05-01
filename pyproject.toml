@@ -40,3 +40,12 @@ classifiers = [
 Homepage = "https://github.com/mohamedgamalmoha/django_faker_admin"
 Documentation = "https://github.com/mohamedgamalmoha/django_faker_admin"
 Source = "https://github.com/mohamedgamalmoha/django_faker_admin"
+
+[project.optional-dependencies]
+test = [
+    "Django>=5.2",
+    "factory_boy>=3.3.3",
+    "Faker>=37.1.0",
+    "pytest==8.3.5",
+    "beautifulsoup4==4.13.4"
+]
