@@ -7,13 +7,13 @@ from django.core.management import call_command
 from django.test import RequestFactory, TestCase
 from bs4 import BeautifulSoup
 
+from django_faker_admin.conf import settings
+
 from tests.testapp.models import TestModel
 from tests.testapp.admin import TestModelAdmin
 
 
 User = get_user_model()
-
-FAKER_ADMIN_URL = 'populate-dummy-data/'
 
 
 class DateHierarchyTests(TestCase):
@@ -64,7 +64,7 @@ class DateHierarchyTests(TestCase):
 
         return permission
 
-    def test_href_exisit(self):
+    def test_href_exist(self):
         request = self.factory.get(self.list_url)
         request.user = self.superuser
         
@@ -78,10 +78,10 @@ class DateHierarchyTests(TestCase):
         self.assertEqual(cl.status_code, 200)
         self.assertTrue(self.superuser.has_perm(self.add_perm_codename))
         self.assertTrue(
-            any(tag['href'] == FAKER_ADMIN_URL for tag in add_tags)
+            any(tag['href'] == settings.FAKER_ADMIN_URL for tag in add_tags)
         )
 
-    def test_no_href_exisit(self):
+    def test_no_href_exist(self):
         permission = self.get_permission_from_codename(self.add_perm_codename)
         self.orduser.user_permissions.remove(permission)
   
@@ -98,5 +98,5 @@ class DateHierarchyTests(TestCase):
         self.assertEqual(cl.status_code, 200)
         self.assertFalse(self.orduser.has_perm(self.add_perm_codename))
         self.assertFalse(
-            any(tag['href'] == FAKER_ADMIN_URL for tag in add_tags)
+            any(tag['href'] == settings.FAKER_ADMIN_URL for tag in add_tags)
         )
