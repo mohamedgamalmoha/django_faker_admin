@@ -5,7 +5,7 @@ Django Faker Admin
    This package is a work in progress, and not all features are implemented
    or tested intensively to make sure that it behaves as expected.
 
-.. image:: ../../../images/logo.png
+.. image:: _static/logo.png
    :target: https://test.pypi.org/simple/django-faker-admin
    :alt: PyPI Version
 
