@@ -21,6 +21,7 @@ jobs:
           pip install -e .[docs]
       - name: Copy Static Files
         run: |
+          mkdir -p docs/source/_static
           cp assets/* docs/source/_static/
       - name: Sphinx Build
         run: |
