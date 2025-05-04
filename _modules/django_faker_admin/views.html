@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>django_faker_admin.views &mdash; Django Faker Admin 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Django Faker Admin
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../templates.html">Template Overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes.html">Important Notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Django Faker Admin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">django_faker_admin.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for django_faker_admin.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">django</span><span class="w"> </span><span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.urls</span><span class="w"> </span><span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.views.generic</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormView</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.admin</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelAdmin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.admin.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AdminForm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">PermissionDenied</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_lazy</span><span class="p">,</span> <span class="n">ngettext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">factory.django</span><span class="w"> </span><span class="kn">import</span> <span class="n">DjangoModelFactory</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">django_faker_admin.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
+
+
+<div class="viewcode-block" id="FakerAdminView">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FakerAdminView</span><span class="p">(</span><span class="n">FormView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A view to populate dummy data for a given model.</span>
+
+<span class="sd">    This view integrates with the Django admin and uses a factory class to generate dummy data for a specified model.</span>
+<span class="sd">    It provides a custom form within the admin interface where the user can specify the number of dummy items to create.</span>
+<span class="sd">    The form excludes specified fields and ensures that only the desired number of dummy items are created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#: Factory class to be used for creating dummy data</span>
+    <span class="n">factory_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">DjangoModelFactory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#: ModelAdmin instance for the model to be populated</span>
+    <span class="n">model_admin</span><span class="p">:</span> <span class="n">ModelAdmin</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#: URL to redirect to after form submission</span>
+    <span class="n">exclude</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1">#: Template name for the view</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">FAKER_ADMIN_TEMPLATE_NAME</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">model_admin</span><span class="p">:</span> <span class="n">ModelAdmin</span><span class="p">,</span>
+            <span class="n">factory_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">DjangoModelFactory</span><span class="p">],</span>
+            <span class="n">exclude</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the view with the model admin and factory class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - model_admin (ModelAdmin): The admin class for the model to be populated.</span>
+<span class="sd">            - factory_class (Type[DjangoModelFactory]): The factory class used to create dummy data.</span>
+<span class="sd">            - exclude (Tuple[str]): A tuple of field names to be excluded from the form.</span>
+<span class="sd">            - **kwargs: Additional keyword arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_admin</span> <span class="o">=</span> <span class="n">model_admin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_admin</span><span class="o">.</span><span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factory_class</span> <span class="o">=</span> <span class="n">factory_class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span>
+
+<div class="viewcode-block" id="FakerAdminView.has_add_permission">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.has_add_permission">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">has_add_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the user has permission to add dummy data for the model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - request: The HTTP request object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - bool: True if the user has permission, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="si">}</span><span class="s2">.add_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.dispatch">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.dispatch">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the HTTP request and checks for permissions.</span>
+<span class="sd">        This method is called before the view processes the request. It checks if the user has permission to add</span>
+<span class="sd">        dummy data for the model. If not, it raises a PermissionDenied exception.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - request: The HTTP request object.</span>
+<span class="sd">            - *args: Additional positional arguments.</span>
+<span class="sd">            - **kwargs: Additional keyword arguments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - HttpResponse: The response object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            - PermissionDenied: If the user does not have permission to add dummy data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check if the user has add permission for the model</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_add_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PermissionDenied</span><span class="p">(</span>
+                <span class="n">gettext_lazy</span><span class="p">(</span><span class="s2">&quot;You don&#39;t have permission to preform this action.&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_exclude">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_exclude">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_exclude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a tuple of field names to be excluded.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - A tuple containing the names of fields to be excluded. This includes both fields explicitly listed in</span>
+<span class="sd">              `self.exclude` and fields in the model marked as unique.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Find all field names in the model that are marked as unique.</span>
+        <span class="n">unique_fields</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s1">&#39;unique&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># Combine the explicitly excluded fields with the unique fields.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">()</span> <span class="o">+</span> <span class="n">unique_fields</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_form_kwargs">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_form_kwargs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_form_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the keyword arguments for instantiating the form.</span>
+<span class="sd">        This method is used to pass the initial data and request data to the form.</span>
+<span class="sd">        It includes the initial data, prefix, and any POST or PUT data if the request method is either of those.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - dict: A dictionary of keyword arguments to be passed to the form class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span>  <span class="p">{</span>
+            <span class="s2">&quot;initial&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_initial</span><span class="p">(),</span>
+            <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_prefix</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;request&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;PUT&quot;</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span>
+                    <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_form_class">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_form_class">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_form_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamically creates and returns a form class for dummy data creation.</span>
+
+<span class="sd">        This method overrides the default form to include a &#39;size&#39; field, which specifies the number of dummy instances</span>
+<span class="sd">        to be created. It also sets all fields inherited from the base form class as not required, except for the</span>
+<span class="sd">        &#39;size&#39; field which is mandatory and constrained to a range between 1 and 20.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - MainForm (forms.ModelForm): A dynamically created form class that inherits from the base form class</span>
+<span class="sd">              associated with the factory model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Dynamically generate a base form class using the model, excluding specified fields</span>
+        <span class="n">FromBase</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">modelform_factory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">exclude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_exclude</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="c1"># Get the base fields from the generated form class</span>
+        <span class="n">form_fields</span> <span class="o">=</span> <span class="n">FromBase</span><span class="o">.</span><span class="n">base_fields</span>
+
+        <span class="c1"># Define a new form class that includes a &#39;size&#39; field and sets all other fields as not required</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">MainForm</span><span class="p">(</span><span class="n">FromBase</span><span class="p">):</span>
+            <span class="c1"># Define a &#39;size&#39; field that is required, with a minimum value.</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">FAKER_ADMIN_MAX_LIMIT</span><span class="p">)</span>
+            <span class="c1"># Specify the order of fields, placing &#39;size&#39; at the beginning</span>
+            <span class="n">field_order</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">form_fields</span><span class="p">)</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="c1"># Call the superclass initializer</span>
+                <span class="nb">super</span><span class="p">(</span><span class="n">MainForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="c1"># Iterate over the form fields and set them as not required</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form_fields</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Return the dynamically created form class</span>
+        <span class="k">return</span> <span class="n">MainForm</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_admin_form">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_admin_form">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_admin_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates and returns an admin form for the dummy data creation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - AdminForm: The admin form with fields for dummy data creation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_form</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">AdminForm</span><span class="p">(</span>
+            <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">,</span>
+            <span class="n">fieldsets</span><span class="o">=</span><span class="nb">list</span><span class="p">([(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="n">form</span><span class="o">.</span><span class="n">field_order</span><span class="p">})]),</span>
+            <span class="n">prepopulated_fields</span><span class="o">=</span><span class="p">{},</span>
+            <span class="n">readonly_fields</span><span class="o">=</span><span class="p">(),</span>
+            <span class="n">model_admin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_admin</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_context_data">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_context_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the admin form to the context data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - **kwargs: Additional keyword arguments passed to the superclass method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - dict: Context data including the admin form.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;adminform&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_admin_form</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">context</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.form_valid">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.form_valid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles valid form submission, creating dummy data using the factory class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - form: The submitted form with valid data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - HttpResponseRedirect: A redirect response to the success URL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cleaned_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factory_class</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="o">**</span><span class="n">cleaned_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_success_message">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_success_message">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_success_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cleaned_data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a success message after creating dummy data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - cleaned_data: The cleaned data from the submitted form.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - str: A success message indicating the number of objects created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">gettext_lazy</span><span class="p">(</span>
+                <span class="n">ngettext</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> object was successfully created.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> objects were successfully created.&quot;</span><span class="p">,</span>
+                    <span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">],</span>
+                <span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FakerAdminView.get_success_url">
+<a class="viewcode-back" href="../../views.html#django_faker_admin.views.FakerAdminView.get_success_url">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the URL to redirect to after successfully creating dummy data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - str: A URL to redirect to after form submission.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">model_name</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;admin:</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_changelist&#39;</span> <span class="o">%</span> <span class="n">info</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, M.Gamal.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
