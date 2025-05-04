@@ -38,7 +38,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/mohamedgamalmoha/django_faker_admin"
-Documentation = "https://github.com/mohamedgamalmoha/django_faker_admin"
+Documentation = "https://mohamedgamalmoha.github.io/django_faker_admin/"
 Source = "https://github.com/mohamedgamalmoha/django_faker_admin"
 
 [project.optional-dependencies]
