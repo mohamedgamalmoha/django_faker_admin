@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; Django Faker Admin 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Views" href="views.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Django Faker Admin
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#default-settings">Default Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#faker-admin-max-limit">FAKER_ADMIN_MAX_LIMIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faker-admin-url">FAKER_ADMIN_URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faker-admin-template-name">FAKER_ADMIN_TEMPLATE_NAME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faker-admin-change-list-template">FAKER_ADMIN_CHANGE_LIST_TEMPLATE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#applying-configuration">Applying Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation-checks">Validation Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Template Overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes.html">Important Notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Django Faker Admin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mohamedgamalmoha/django_faker_admin/blob/main//docs/source/configuration.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>Django Faker Admin can be configured through several settings in your Django project’s <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> file.</p>
+<section id="default-settings">
+<h2>Default Settings<a class="headerlink" href="#default-settings" title="Link to this heading"></a></h2>
+<p>Django Faker Admin comes with the following default configuration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;FAKER_ADMIN_MAX_LIMIT&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">&#39;FAKER_ADMIN_URL&#39;</span><span class="p">:</span> <span class="s1">&#39;populate-dummy-data/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;FAKER_ADMIN_TEMPLATE_NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;admin/faker_admin.html&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;FAKER_ADMIN_CHANGE_LIST_TEMPLATE&#39;</span><span class="p">:</span> <span class="s1">&#39;admin/faker_admin_change_list.html&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-options">
+<h2>Configuration Options<a class="headerlink" href="#configuration-options" title="Link to this heading"></a></h2>
+<section id="faker-admin-max-limit">
+<h3>FAKER_ADMIN_MAX_LIMIT<a class="headerlink" href="#faker-admin-max-limit" title="Link to this heading"></a></h3>
+<p><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">100</span></code></p>
+<p>The maximum number of fake objects that can be created in a single batch operation. This limit helps prevent accidental creation of too many database records.</p>
+<p><strong>Validation:</strong> Must be a positive integer (greater than 0).</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In settings.py</span>
+<span class="n">FAKER_ADMIN_MAX_LIMIT</span> <span class="o">=</span> <span class="mi">500</span>  <span class="c1"># Allow creation of up to 500 objects in one batch</span>
+</pre></div>
+</div>
+</section>
+<section id="faker-admin-url">
+<h3>FAKER_ADMIN_URL<a class="headerlink" href="#faker-admin-url" title="Link to this heading"></a></h3>
+<p><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">'populate-dummy-data/'</span></code></p>
+<p>The URL path segment used for the faker admin view. This URL will be appended to your model’s admin URL.</p>
+<p><strong>Validation:</strong> Must end with a forward slash (<code class="docutils literal notranslate"><span class="pre">'/'</span></code>).</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In settings.py</span>
+<span class="n">FAKER_ADMIN_URL</span> <span class="o">=</span> <span class="s1">&#39;generate-fake-data/&#39;</span>  <span class="c1"># Changes the URL pattern</span>
+</pre></div>
+</div>
+<p>With the above setting, if your model admin URL is <code class="docutils literal notranslate"><span class="pre">/admin/myapp/customer/</span></code>, the faker admin URL would be <code class="docutils literal notranslate"><span class="pre">/admin/myapp/customer/generate-fake-data/</span></code>.</p>
+</section>
+<section id="faker-admin-template-name">
+<h3>FAKER_ADMIN_TEMPLATE_NAME<a class="headerlink" href="#faker-admin-template-name" title="Link to this heading"></a></h3>
+<p><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">'admin/faker_admin.html'</span></code></p>
+<p>The template used for the faker admin view. This template contains the form for generating fake data.</p>
+<p><strong>Validation:</strong> Must end with the <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In settings.py</span>
+<span class="n">FAKER_ADMIN_TEMPLATE_NAME</span> <span class="o">=</span> <span class="s1">&#39;admin/custom_faker_form.html&#39;</span>  <span class="c1"># Use a custom template</span>
+</pre></div>
+</div>
+</section>
+<section id="faker-admin-change-list-template">
+<h3>FAKER_ADMIN_CHANGE_LIST_TEMPLATE<a class="headerlink" href="#faker-admin-change-list-template" title="Link to this heading"></a></h3>
+<p><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">'admin/faker_admin_change_list.html'</span></code></p>
+<p>The template used for the change list view that includes the faker admin functionality. This template extends the standard Django admin change list template.</p>
+<p><strong>Validation:</strong> Must end with the <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In settings.py</span>
+<span class="n">FAKER_ADMIN_CHANGE_LIST_TEMPLATE</span> <span class="o">=</span> <span class="s1">&#39;admin/custom_change_list.html&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="applying-configuration">
+<h2>Applying Configuration<a class="headerlink" href="#applying-configuration" title="Link to this heading"></a></h2>
+<p>To override the default settings, add your custom values to your project’s <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings.py</span>
+
+<span class="c1"># Django Faker Admin settings</span>
+<span class="n">FAKER_ADMIN_MAX_LIMIT</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">FAKER_ADMIN_URL</span> <span class="o">=</span> <span class="s1">&#39;create-fake-data/&#39;</span>
+<span class="n">FAKER_ADMIN_TEMPLATE_NAME</span> <span class="o">=</span> <span class="s1">&#39;admin/custom_faker.html&#39;</span>
+<span class="n">FAKER_ADMIN_CHANGE_LIST_TEMPLATE</span> <span class="o">=</span> <span class="s1">&#39;admin/custom_faker_list.html&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="validation-checks">
+<h2>Validation Checks<a class="headerlink" href="#validation-checks" title="Link to this heading"></a></h2>
+<p>Django Faker Admin performs validation checks on your configuration values during Django’s system check framework execution. If any of your configuration values don’t meet the validation requirements, Django will raise a warning.</p>
+<p>The following checks are performed:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FAKER_ADMIN_MAX_LIMIT</span></code> must be an integer greater than 0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FAKER_ADMIN_URL</span></code> must end with a forward slash (<code class="docutils literal notranslate"><span class="pre">'/'</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FAKER_ADMIN_TEMPLATE_NAME</span></code> must end with the <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FAKER_ADMIN_CHANGE_LIST_TEMPLATE</span></code> must end with the <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension</p></li>
+</ol>
+<p>For example, if you set <code class="docutils literal notranslate"><span class="pre">FAKER_ADMIN_MAX_LIMIT</span> <span class="pre">=</span> <span class="pre">0</span></code>, you’ll see a warning like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>System check identified some issues:
+
+WARNINGS:
+?: (django_faker_admin.W001)&#39; FAKER_ADMIN_MAX_LIMIT&#39; should be a positive integer.
+     HINT: Set &#39;FAKER_ADMIN_MAX_LIMIT&#39; to a positive integer in your settings.
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="views.html" class="btn btn-neutral float-right" title="Views" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, M.Gamal.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
