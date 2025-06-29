@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Views &mdash; Django Faker Admin 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Admin" href="admin.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Django Faker Admin
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView"><code class="docutils literal notranslate"><span class="pre">FakerAdminView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.dispatch"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.dispatch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.exclude"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.exclude</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.factory_class"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.factory_class</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.form_valid"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.form_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_admin_form"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_admin_form()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_context_data"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_context_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_exclude"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_exclude()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_form_class"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_form_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_form_kwargs"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_form_kwargs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_success_message"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_success_message()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.get_success_url"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.get_success_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.has_add_permission"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.has_add_permission()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.model_admin"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.model_admin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django_faker_admin.views.FakerAdminView.template_name"><code class="docutils literal notranslate"><span class="pre">FakerAdminView.template_name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Template Overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes.html">Important Notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Django Faker Admin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Views</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mohamedgamalmoha/django_faker_admin/blob/main//docs/source/views.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-django_faker_admin.views">
+<span id="views"></span><h1>Views<a class="headerlink" href="#module-django_faker_admin.views" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">django_faker_admin.views.</span></span><span class="sig-name descname"><span class="pre">FakerAdminView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_admin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelAdmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factory_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">DjangoModelFactory</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView" title="Link to this definition"></a></dt>
+<dd><p>A view to populate dummy data for a given model.</p>
+<p>This view integrates with the Django admin and uses a factory class to generate dummy data for a specified model.
+It provides a custom form within the admin interface where the user can specify the number of dummy items to create.
+The form excludes specified fields and ensures that only the desired number of dummy items are created.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.dispatch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.dispatch" title="Link to this definition"></a></dt>
+<dd><p>Handles the HTTP request and checks for permissions.
+This method is called before the view processes the request. It checks if the user has permission to add
+dummy data for the model. If not, it raises a PermissionDenied exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>-</em>) – The HTTP request object.</p></li>
+<li><p><strong>*args</strong> (<em>-</em>) – <p>Additional positional arguments.</p>
+</p></li>
+<li><p><strong>**kwargs</strong> (<em>-</em>) – <p>Additional keyword arguments.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>HttpResponse</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>- PermissionDenied</strong> – If the user does not have permission to add dummy data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.exclude">
+<span class="sig-name descname"><span class="pre">exclude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.exclude" title="Link to this definition"></a></dt>
+<dd><p>URL to redirect to after form submission</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.factory_class">
+<span class="sig-name descname"><span class="pre">factory_class</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">DjangoModelFactory</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.factory_class" title="Link to this definition"></a></dt>
+<dd><p>Factory class to be used for creating dummy data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.form_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.form_valid" title="Link to this definition"></a></dt>
+<dd><p>Handles valid form submission, creating dummy data using the factory class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>form</strong> (<em>-</em>) – The submitted form with valid data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect response to the success URL.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>HttpResponseRedirect</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_admin_form">
+<span class="sig-name descname"><span class="pre">get_admin_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_admin_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_admin_form" title="Link to this definition"></a></dt>
+<dd><p>Creates and returns an admin form for the dummy data creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The admin form with fields for dummy data creation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>AdminForm</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_context_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_context_data" title="Link to this definition"></a></dt>
+<dd><p>Adds the admin form to the context data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<em>-</em>) – <p>Additional keyword arguments passed to the superclass method.</p>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Context data including the admin form.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>dict</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_exclude">
+<span class="sig-name descname"><span class="pre">get_exclude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_exclude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_exclude" title="Link to this definition"></a></dt>
+<dd><p>Constructs a tuple of field names to be excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>A tuple containing the names of fields to be excluded. This includes both fields explicitly listed in
+<cite>self.exclude</cite> and fields in the model marked as unique.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_form_class">
+<span class="sig-name descname"><span class="pre">get_form_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_form_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_form_class" title="Link to this definition"></a></dt>
+<dd><p>Dynamically creates and returns a form class for dummy data creation.</p>
+<p>This method overrides the default form to include a ‘size’ field, which specifies the number of dummy instances
+to be created. It also sets all fields inherited from the base form class as not required, except for the
+‘size’ field which is mandatory and constrained to a range between 1 and 20.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A dynamically created form class that inherits from the base form class</dt><dd><p>associated with the factory model.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>MainForm (forms.ModelForm)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_form_kwargs">
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_form_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_form_kwargs" title="Link to this definition"></a></dt>
+<dd><p>Returns the keyword arguments for instantiating the form.
+This method is used to pass the initial data and request data to the form.
+It includes the initial data, prefix, and any POST or PUT data if the request method is either of those.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary of keyword arguments to be passed to the form class.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>dict</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_success_message">
+<span class="sig-name descname"><span class="pre">get_success_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cleaned_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_success_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_success_message" title="Link to this definition"></a></dt>
+<dd><p>Generates a success message after creating dummy data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cleaned_data</strong> (<em>-</em>) – The cleaned data from the submitted form.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A success message indicating the number of objects created.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>str</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.get_success_url">
+<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.get_success_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.get_success_url" title="Link to this definition"></a></dt>
+<dd><p>Returns the URL to redirect to after successfully creating dummy data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A URL to redirect to after form submission.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>str</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.has_add_permission">
+<span class="sig-name descname"><span class="pre">has_add_permission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/django_faker_admin/views.html#FakerAdminView.has_add_permission"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.has_add_permission" title="Link to this definition"></a></dt>
+<dd><p>Checks if the user has permission to add dummy data for the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>-</em>) – The HTTP request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the user has permission, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>bool</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.model_admin">
+<span class="sig-name descname"><span class="pre">model_admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ModelAdmin</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.model_admin" title="Link to this definition"></a></dt>
+<dd><p>ModelAdmin instance for the model to be populated</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="django_faker_admin.views.FakerAdminView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'admin/faker_admin.html'</span></em><a class="headerlink" href="#django_faker_admin.views.FakerAdminView.template_name" title="Link to this definition"></a></dt>
+<dd><p>Template name for the view</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="admin.html" class="btn btn-neutral float-right" title="Admin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, M.Gamal.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
